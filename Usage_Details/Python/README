@@ -1,0 +1,35 @@
+An example script which will print the usage for a specific zone, fqdn or print for all fqdn broken down by fqdn
+   
+The credentials are read out of a configuration file in the same directory named credentials.cfg in the format:
+
+[Dynect]
+user : user_name
+customer : customer_name
+password: password
+
+Usage: %python suz.py [-s|-r|-z|-g|-n] [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -a, --all             Output all hostnames with QPS (default)
+  -z ZONE, --zone=ZONE  Return the QPS for a specific zone
+  -f FQDN, --fqdn=FQDN  Return the QPS for a specific fqdn (hostname)
+  -c FILE, --csv=FILE   File to output data to in csv format
+  -s START, --start=START
+			Start date for QPS (ie: 2012-09-30). The start time
+			begins on 00:00:01
+  -e END, --end=END     End date for QPS (ie: 2012-09-30). The end time
+			finshes at 23:59:59   
+
+The library is available at: https://github.com/dyninc/Dynect-API-Python-Library
+
+
+=========================================================================================
+Usage Examples:
+  
+ - Print all usage from 1/8/2012 to 1/9/2012 and also create a csv named output.csv in the same directory
+  % python qps_detail.py -s 2012-08-01 -e 2012-09-01 -c output.csv
+
+
+ - Print all usage from 1/8/2012 to 1/9/2012 for the hostname (fqdn) www.tester.com and also create a csv named output.csv in the same directory
+  % python qps_detail.py -s 2012-08-01 -e 2012-09-01 -c output.csv -f www.tester.com
