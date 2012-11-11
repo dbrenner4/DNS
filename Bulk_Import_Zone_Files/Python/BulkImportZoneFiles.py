@@ -130,14 +130,6 @@ for zoneFileName in os.listdir(path):
     # If the API needs time to catch up.
     count = 0
 
-    while(publish_zone['status'] != 'success') and (count < 10):
-        print "Waiting for the DynECT API..."
-        count = count + 1
-        # The Script will sleep for 30 seconds.
-        time.sleep(30)
-        # Execute the the PUT command again to the DynECT API.
-        publish_zone = rest_iface.execute(zone_pub_name, 'PUT', publish_arg)
-
     # Checking to see if the Zone was Published.
     if publish_zone['status'] != 'success':
         print 'Zone %s Not Published' % zone_name
