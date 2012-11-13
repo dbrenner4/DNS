@@ -117,6 +117,12 @@ for zoneFileName in os.listdir(path):
     # Sending the PUT command to the DynECT API.
     publish_zone = rest_iface.execute(zone_pub_name, 'PUT', publish_arg)
     
+<<<<<<< HEAD
+=======
+    # If the API needs time to catch up.
+    count = 0
+
+>>>>>>> 362983c000c1b3d15a81d3d43bdbf155c593861b
     # Checking to see if the Zone was Published.
     if publish_zone['status'] != 'success':
         print 'Zone %s Not Published' % zone_name
