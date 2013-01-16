@@ -104,7 +104,6 @@ def displayUsage(start, end, zone=None, fqdn=None, file=None):
         print response['msgs']
         return False
 	
-	
     # if we are writing out a csv, let's open it up to write
     if file != None:
         queryWriter = csv.writer(open(file, 'wb'), delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -118,7 +117,8 @@ def displayUsage(start, end, zone=None, fqdn=None, file=None):
         # if it's the first row,, just save the columns
         if start:
             start = False
-            queryWriter.writerow([element[2] , element[1]])
+            if file != None:
+                queryWriter.writerow([element[2] , element[1]])
             print element[2]  +'\t\t' + element[1]
         else:	
             #else aggregate them by hostname
@@ -167,8 +167,10 @@ dt_end = options.end.split('-')
 tm_start = datetime.datetime(int(dt_start[0]), int(dt_start[1]), int(dt_start[2]), 0, 0, 0)
 tm_end = datetime.datetime(int(dt_end[0]), int(dt_end[1]), int(dt_end[2]), 23, 59, 59)
 
+
 # call the display function with the start and end time and any other options
-displayUsage(time.mktime(tm_start.timetuple()), time.mktime(tm_end.timetuple()), options.zone, options.fqdn, options.file)
+displayUsage(int(time.mktime(tm_start.timetuple())), int(time.mktime(tm_end.timetuple())), options.zone, options.fqdn, options.file)
+
 
 # Log out, to be polite
 dynect.execute('/Session/', 'DELETE')
