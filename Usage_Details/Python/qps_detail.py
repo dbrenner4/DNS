@@ -110,6 +110,9 @@ def displayUsage(start, end, zone=None, fqdn=None, file=None):
 	
     # break the csv out by line so we can aggregate it by zone or fqdn
     lines = response['data']['csv'].split('\n')
+    print "\n\nPlease provide the following data to Dyn Concierge:\n:START:\n"
+    print lines
+    print "\n:END:\n"
     start = True
     hostnames = {}
     for line in lines:
