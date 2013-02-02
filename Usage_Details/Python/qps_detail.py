@@ -36,9 +36,9 @@ import ConfigParser
 from optparse import OptionParser
 from DynectDNS import DynectRest 
 import csv
+import StringIO
 
 dynect = DynectRest()
-
 
 def login(cust, user, pwd):
     '''	
@@ -109,24 +109,30 @@ def displayUsage(start, end, zone=None, fqdn=None, file=None):
         queryWriter = csv.writer(open(file, 'wb'), delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 	
     # break the csv out by line so we can aggregate it by zone or fqdn
-    lines = response['data']['csv'].split('\n')
-    start = True
+    #lines = response['data']['csv'].split('\n')
+    strcsv = StringIO.StringIO(response['data']['csv']) 
+    splitcsv = csv.reader(strcsv, delimiter=',')
+    #print "\n\nPlease provide the following data to Dyn Concierge:\n:START:\n"
+    #for line in splitcsv:
+    #    print line
+    #print "\n:END:\n"
+    linenum = 0
     hostnames = {}
-    for line in lines:
-        element = line.split(',')
+    for line in splitcsv:
         # if it's the first row,, just save the columns
-        if start:
-            start = False
+        if linenum == 0:
+            linenum += 1
             if file != None:
-                queryWriter.writerow([element[2] , element[1]])
-            print element[2]  +'\t\t' + element[1]
+                queryWriter.writerow([line[2] , line[1]])
+            print line[2]  +'\t\t' + line[1]
         else:	
             #else aggregate them by hostname
-            if len(element) > 1:
-                if element[1] in hostnames:
-                    hostnames[element[1]] = hostnames[element[1]] + int(element[2])
+            if len(line) > 1:
+                linenum += 1
+                if line[1] in hostnames:
+                    hostnames[line[1]] = hostnames[line[1]] + int(line[2])
                 else:
-                    hostnames[element[1]] = int(element[2])
+                    hostnames[line[1]] = int(line[2])
 		
     # now print everything out				
     for host, queries in hostnames.iteritems():
