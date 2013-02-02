@@ -109,13 +109,8 @@ def displayUsage(start, end, zone=None, fqdn=None, file=None):
         queryWriter = csv.writer(open(file, 'wb'), delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 	
     # break the csv out by line so we can aggregate it by zone or fqdn
-    #lines = response['data']['csv'].split('\n')
     strcsv = StringIO.StringIO(response['data']['csv']) 
     splitcsv = csv.reader(strcsv, delimiter=',')
-    #print "\n\nPlease provide the following data to Dyn Concierge:\n:START:\n"
-    #for line in splitcsv:
-    #    print line
-    #print "\n:END:\n"
     linenum = 0
     hostnames = {}
     for line in splitcsv:
