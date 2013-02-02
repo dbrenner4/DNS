@@ -11,7 +11,7 @@ Usage: %python qps_detail.py -s START -e END [-h|-a|-z|-f|-c]
 
 Options:
 	-h, --help            show this help message and exit
-    -a, --all             Output all hostnames with QPS (default)
+    	-a, --all             Output all hostnames with QPS (default)
 	-z ZONE, --zone=ZONE  Return the QPS for a specific zone
 	-f FQDN, --fqdn=FQDN  Return the QPS for a specific fqdn (hostname)
 	-c FILE, --csv=FILE   File to output data to in csv format
