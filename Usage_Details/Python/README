@@ -7,19 +7,19 @@ user : user_name
 customer : customer_name
 password: password
 
-Usage: %python suz.py [-s|-r|-z|-g|-n] [options]
+Usage: %python qps_detail.py -s START -e END [-h|-a|-z|-f|-c]
 
 Options:
-  -h, --help            show this help message and exit
-  -a, --all             Output all hostnames with QPS (default)
-  -z ZONE, --zone=ZONE  Return the QPS for a specific zone
-  -f FQDN, --fqdn=FQDN  Return the QPS for a specific fqdn (hostname)
-  -c FILE, --csv=FILE   File to output data to in csv format
-  -s START, --start=START
-			Start date for QPS (ie: 2012-09-30). The start time
-			begins on 00:00:01
-  -e END, --end=END     End date for QPS (ie: 2012-09-30). The end time
-			finshes at 23:59:59   
+	-h, --help            show this help message and exit
+    -a, --all             Output all hostnames with QPS (default)
+	-z ZONE, --zone=ZONE  Return the QPS for a specific zone
+	-f FQDN, --fqdn=FQDN  Return the QPS for a specific fqdn (hostname)
+	-c FILE, --csv=FILE   File to output data to in csv format
+	-s START, --start=START  Start date for QPS (ie: 2012-09-30). The start time
+					      begins on 00:00:01
+	-e END, --end=END     End date for QPS (ie: 2012-09-30). The end time
+						  finshes at 23:59:59
+
 
 The library is available at: https://github.com/dyninc/Dynect-API-Python-Library
 

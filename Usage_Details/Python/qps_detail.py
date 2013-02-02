@@ -11,7 +11,7 @@
    customer : customer_name
    password: password
    
-   Usage: %python suz.py [-s|-r|-z|-g|-n] [options]
+   Usage: %python qps_detail.py -s START -e END [-h|-a|-z|-f|-c] 
 
    Options:
 	  -h, --help            show this help message and exit
@@ -141,7 +141,7 @@ def displayUsage(start, end, zone=None, fqdn=None, file=None):
             queryWriter.writerow([str(queries) , host])
 
 
-usage = "usage: %python suz.py [-s|-r|-z|-g|-n] [options]"
+usage = "Usage: %python qps_detail.py -s START -e END [-h|-a|-z|-f|-c]"
 parser = OptionParser(usage=usage)
 parser.add_option("-a", "--all", action="store_true", dest="all", default=False, help="Output all hostnames with QPS (default)")
 parser.add_option("-z", "--zone", dest="zone", help="Return the QPS for a specific zone")
