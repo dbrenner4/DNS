@@ -21,7 +21,7 @@ if ($help) {
 		"\tOptions:\n" .
 		"\t-h, --help\tShow this help message and exit\n" .
 		"\t-b, --backup\tCreate a backup of files before processing, defaults to /BACKUP\n" .
-		"\t-d, --dir\tDefines the folder where backups should be places (implies -b).\n\n";
+		"\t-d, --dir\tDefines the folder where backups should be placed (implies -b).\n\n";
 	exit;
 }
 

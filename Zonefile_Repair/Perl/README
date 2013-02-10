@@ -31,15 +31,22 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
 
 ___________________________________________________________________________________
 
-This script is designed to take zone files exported from specific other DNS providers and modify them to a standard BIND style format that can be imported to DynECT.  Symptoms of a malformed zonefile are lack of trailing periods on CNAME/SRV/MX records as well as other minor issues with SRV records.
+This script is designed to take zone files exported from specific other DNS
+providers and modify them to a standard BIND style format that can be 
+imported to DynECT. Symptoms of a malformed zonefile are lack of trailing 
+periods on CNAME/SRV/MX records as well as other minor issues with SRV 
+records.
 
 Usage: %perl zonfile_repair.pl FILES [-d FOLDER|--dir FOLDER |-b|-backup]
 
 Details:
-	FILES		Accepts a single file of file pattern.  No validation is done for valid zone file
-	-h, --help	Show this help message and exit
-	-b, --backup	Create a backup of files before processing, defaults to /BACKUP
-    	-d, --dir	Defines the folder where backups should be places (implies -b).
+	FILES			Accepts a single file of file pattern.  
+					No validation is done for valid zone file
+	-h, --help		Show this help message and exit
+	-b, --backup	Create a backup of files before processing 
+					Defaults to /BACKUP
+   	-d, --dir		Defines the folder where backups should be placed 
+					Implies -b
 
 =========================================================================================
 Usage Examples:
@@ -47,8 +54,10 @@ Usage Examples:
 -Attempts to correct the file 'test.zone' without creating backup
 % perl zonefile_repair.pl test.zone
 
-Attempts to correct the file 'test.zone' with creating a backup of the original file in the folder /BACKUP
+Attempts to correct the file 'test.zone' with creating a backup of the 
+original file in the folder /BACKUP
 % perl zonefile_repair.pl test.zone -b
 
-Attempts to correct all files matching pattern '*.ZONE' while creating a backup of original files in folder /TEST
+Attempts to correct all files matching pattern '*.ZONE' while creating a 
+backup of original files in folder /TEST
 % perl zonefile_repair.pl *.ZONE -d TEST
