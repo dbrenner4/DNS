@@ -1,6 +1,20 @@
 #!/usr/bin/perl
-#this script is fucntionally complete but requires commenting (it is quite simple)
-#this is a test comment
+
+#This script is designed to take zone files exported from specific other DNS
+#providers and modify them to a standard BIND style format that can be
+#imported to DynECT. Symptoms of a malformed zonefile are lack of trailing
+#periods on CNAME/SRV/MX records as well as other minor issues with SRV
+#records.
+#
+#Usage: %perl zonfile_repair.pl FILES [-d FOLDER|--dir FOLDER |-b|-backup]
+#
+#Details:
+#    FILES           Accepts a single file of file pattern.
+#                    No validation is done for valid zone file
+#    -h, --help      Show this help message and exit
+#    -b, --backup    Create a backup of files before processing
+#                    Defaults to /BACKUP
+#	-d, --dir       Defines the folder where backups should be placed
 
 use warnings;
 use strict;
@@ -16,6 +30,7 @@ GetOptions(
 	'help' => \$help,
 );
 
+#help message if -h is set
 if ($help) {
 	print "\nUsage: %perl zonfile_repair.pl FILES [-d FOLDER|--dir FOLDER |-b|-backup]\n\n" .
 		"\tOptions:\n" .
@@ -25,6 +40,7 @@ if ($help) {
 	exit;
 }
 
+#define file backups if -b or -d is set
 if ($opt_backup) {
 	$opt_dir = 'BACKUP' unless ($opt_dir);	#define a default value for $opt_dir if it doesnt exist
 }
@@ -34,30 +50,34 @@ else {
 
 
 if ($opt_backup) {
-	unless (-d $opt_dir) {
-		mkdir $opt_dir;
+	unless (-d $opt_dir) {	
+		#if the folder does not exist, attempt to create it	
+		#DIE if folder creation fails
+		dir $opt_dir or die "Can not create folder $opt_dir.  Please check if you have the correct permissions";	
 	}
-	$^I = "$opt_dir/*.bak";
+	$^I = "$opt_dir/*.bak";	#set backup files to be written to this directory
 }
 else {
-	$^I = '';
+	$^I = '';	#disable file backup
 }
 
-while ( <> ) {
+while ( <> ) {	#process file/matching files
 
 	my $line = $_;
 	chomp $line;
 	$line =~ s/\r$//;        #Remove possible windows style newlines
 
-	if ( $line =~ /\tCNAME\t|\tMX\t|\tSRV\t/ ) {
+	#correct trailing period issues on these record types
+	if ( $line =~ /\tCNAME\t|\tMX\t|\tSRV\t/ ) {	
 		$line =~ s/\.*$/\./ unless $line =~ /\@$/;
 	}
 
+	#Remove extraneous @ from these record types
 	if ($line =~ /\tSRV\t/ ) {
 		$line =~ s/\.@//;
 	}
 
-	print $line;
+	print $line;	#print edited lines into new file
 	print "\n";
 
 }
